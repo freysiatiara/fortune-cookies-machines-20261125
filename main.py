@@ -49,6 +49,9 @@ def main():
     if "\n" in text or "\r" in text:
         print("error: entry text must be a single line", file=sys.stderr)
         sys.exit(1)
+    if any(ord(ch) < 32 or ord(ch) == 127 for ch in text):
+        print("error: entry text contains control characters", file=sys.stderr)
+        sys.exit(1)
 
     path = resolve_output_path()
     parent = os.path.dirname(path)
